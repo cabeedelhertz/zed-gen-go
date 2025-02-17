@@ -51,18 +51,6 @@ func (l *Lexer) IsEOF() bool {
 	return l.Token == scanner.TEOF
 }
 
-func (l *Lexer) Comments() []string {
-	cm := make([]string, len(l.scanner.Comments()))
-	for i, c := range l.scanner.Comments() {
-		cm[i] = string(c.Lit)
-	}
-	return cm
-}
-
-func (l *Lexer) NextComment() {
-	l.nextInMode(scanner.ScanComment)
-}
-
 func (l *Lexer) TryNextComment() bool {
 	l.nextInMode(scanner.ScanComment)
 	if l.Token == scanner.TCOMMENT {

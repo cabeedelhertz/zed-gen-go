@@ -96,10 +96,6 @@ func isDecimalDigit(r rune) bool {
 	return '0' <= r && r <= '9'
 }
 
-func (s *Scanner) Comments() []Text {
-	return s.comments
-}
-
 func (s *Scanner) LastScanRaw() []rune {
 	r := make([]rune, len(s.lastScanRaw))
 	copy(r, s.lastScanRaw)

@@ -9,8 +9,8 @@ import (
 type Relation struct {
 	// Name of the relation
 	Name string
-	// Definition of the relation
-	Definition string
+	// Computation definition of the relation
+	Computation string
 	// Comments associated with the relation
 	Comments       []string
 	InlineComments []string
@@ -18,7 +18,7 @@ type Relation struct {
 	Meta meta.Meta
 }
 
-var relationDefDelimitters = map[scanner.Token]interface{}{
+var relationCompDelimitters = map[scanner.Token]interface{}{
 	scanner.THASH:  nil,
 	scanner.TPIPE:  nil,
 	scanner.TCOLON: nil,
@@ -41,22 +41,22 @@ func (p *Parser) ParseRelation() (*Relation, error) {
 	if p.lex.Token != scanner.TCOLON {
 		return nil, errors.New("expected colon")
 	}
-	definition := ""
+	computation := ""
 	// get first identifier token
 	p.lex.Next()
 	if p.lex.Token == scanner.TIDENT {
-		definition += p.lex.Text
+		computation += p.lex.Text
 	}
 	// if there are options or relations after the first identifier, handle those
 	for {
 		p.lex.Next()
-		if _, ok := relationDefDelimitters[p.lex.Token]; ok {
-			definition += p.lex.Text
+		if _, ok := relationCompDelimitters[p.lex.Token]; ok {
+			computation += p.lex.Text
 			p.lex.Next()
 			if p.lex.Token != scanner.TIDENT && p.lex.Token != scanner.TWILDCARD {
-				return nil, errors.New("expected relation definition")
+				return nil, errors.New("expected relation computation")
 			}
-			definition += p.lex.Text
+			computation += p.lex.Text
 		} else {
 			p.lex.UnNext()
 			break
@@ -70,7 +70,7 @@ func (p *Parser) ParseRelation() (*Relation, error) {
 
 	return &Relation{
 		Name:           relName,
-		Definition:     definition,
+		Computation:    computation,
 		InlineComments: inlineComments,
 		Meta: meta.Meta{
 			Pos:     startPos.Position,

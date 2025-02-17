@@ -7,18 +7,18 @@ import (
 )
 
 type Permission struct {
-	// Name of the relation
+	// Name of the permission
 	Name string
-	// Definition of the relation
-	Definition string
-	// Comments associated with the relation
+	// Computation definition of the permission
+	Computation string
+	// Comments associated with the permission
 	Comments       []string
 	InlineComments []string
 	// meta information
 	Meta meta.Meta
 }
 
-var permissionDefDelimitters = map[scanner.Token]interface{}{
+var permissionCompDelimitters = map[scanner.Token]interface{}{
 	scanner.TRIGHTARROW: nil,
 	scanner.TPLUS:       nil,
 	scanner.TMINUS:      nil,
@@ -41,22 +41,22 @@ func (p *Parser) ParsePermission() (*Permission, error) {
 	if p.lex.Token != scanner.TEQUALS {
 		return nil, nil
 	}
-	definition := ""
+	computation := ""
 	// get first identifier token
 	p.lex.Next()
 	if p.lex.Token == scanner.TIDENT {
-		definition += p.lex.Text
+		computation += p.lex.Text
 	}
-	// if there are options or relations after the first identifier, handle those
+	// TODO: parse permission computation logic
 	for {
 		p.lex.Next()
-		if _, ok := permissionDefDelimitters[p.lex.Token]; ok {
-			definition += p.lex.Text
+		if _, ok := permissionCompDelimitters[p.lex.Token]; ok {
+			computation += p.lex.Text
 			p.lex.ConsumeToken(scanner.TIDENT)
 			if p.lex.Token != scanner.TIDENT {
-				return nil, errors.New("expected permission definition")
+				return nil, errors.New("expected permission computation")
 			}
-			definition += p.lex.Text
+			computation += p.lex.Text
 		} else {
 			p.lex.UnNext()
 			break
@@ -70,7 +70,7 @@ func (p *Parser) ParsePermission() (*Permission, error) {
 
 	return &Permission{
 		Name:           permName,
-		Definition:     definition,
+		Computation:    computation,
 		InlineComments: inlineComments,
 		Meta: meta.Meta{
 			Pos:     startPos.Position,
