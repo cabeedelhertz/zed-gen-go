@@ -1,6 +1,6 @@
 # Zed-Gen-Go
 
-A program to generate types, enums, and builder functions for working with Authzed clients in Go.
+A program to generate types, enums, and builder functions for working with [Authzed](https://github.com/authzed/authzed-go) clients in Go.
 
 Given a SpiceDB schema file (e.g. `schema/schema.zed`), parses the file into a list of Resource definitions, each with its set of Relations and Permissions.
 
