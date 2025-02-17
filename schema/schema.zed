@@ -1,0 +1,48 @@
+definition user {}
+
+definition document {
+    relation parent_folder: folder
+
+    relation writer: user
+    relation reader: user // testing comment
+ 
+    /**
+     * edit determines whether a user can edit the document
+     */
+    permission edit = writer
+ 
+    /**
+     * view determines whether a user can view the document
+     */
+    permission view = reader + writer + parent_folder->view // testing inline comment
+}
+
+definition folder {
+    relation writer: user
+    relation reader: user | team#member
+ 
+    /**
+     * edit determines whether a user can edit the folder
+     */
+    permission edit = writer
+ 
+    /**
+     * view determines whether a user can view the folder
+     */
+    permission view = reader + writer
+}
+
+definition team {
+    relation member: user
+    relation owner: user
+ 
+    /**
+     * edit determines whether a user can edit the team
+     */
+    permission edit = owner
+ 
+    /**
+     * view determines whether a user can view the team
+     */
+    permission view = member + owner
+}
