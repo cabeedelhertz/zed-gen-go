@@ -34,7 +34,7 @@ func (r *RelBuilder) Update() *RelBuilder {
 	return r
 }
 
-func (r *RelBuilder) perm(resource Objecter, rel Relationshiper, subject Objecter) *RelBuilder {
+func (r *RelBuilder) perm(resource Objecter, rel Relationer, subject Objecter) *RelBuilder {
 	up := &v1.RelationshipUpdate{
 		Operation: r.action,
 		Relationship: &v1.Relationship{
@@ -66,7 +66,7 @@ func (r *RelBuilder) Build() []*v1.RelationshipUpdate {
 type Objecter interface {
 	Object() string
 	String() string
-	Relation() Relationshiper
+	Relation() Relationer
 	Id() string
 }
 
@@ -74,10 +74,10 @@ type Objecter interface {
 type Deleter interface {
 	Object() string
 	Id() string
-	Relation() Relationshiper
+	Relation() Relationer
 }
 
-type Relationshiper interface {
+type Relationer interface {
 	String() string
 }
 
@@ -115,7 +115,7 @@ func (s User) Id() string {
 	return s.id
 }
 
-func (s User) Relation() Relationshiper {
+func (s User) Relation() Relationer {
 	return s.relation
 }
 
@@ -123,8 +123,8 @@ func (s User) String() string {
 	return "user:" + string(s.id)
 }
 
-// UserRelation builds a user relationship to be created, touched, or deleted.
-func (r *RelBuilder) UserRelation(user *User, rel UserRelType, subject Objecter) *RelBuilder {
+// UserRelationship builds a user relationship to be created, touched, or deleted.
+func (r *RelBuilder) UserRelationship(user *User, rel UserRelType, subject Objecter) *RelBuilder {
 	return r.perm(user, rel, subject)
 }
 
@@ -172,7 +172,7 @@ func (s Document) Id() string {
 	return s.id
 }
 
-func (s Document) Relation() Relationshiper {
+func (s Document) Relation() Relationer {
 	return s.relation
 }
 
@@ -180,8 +180,8 @@ func (s Document) String() string {
 	return "document:" + string(s.id)
 }
 
-// DocumentRelation builds a document relationship to be created, touched, or deleted.
-func (r *RelBuilder) DocumentRelation(document *Document, rel DocumentRelType, subject Objecter) *RelBuilder {
+// DocumentRelationship builds a document relationship to be created, touched, or deleted.
+func (r *RelBuilder) DocumentRelationship(document *Document, rel DocumentRelType, subject Objecter) *RelBuilder {
 	return r.perm(document, rel, subject)
 }
 
@@ -227,7 +227,7 @@ func (s Folder) Id() string {
 	return s.id
 }
 
-func (s Folder) Relation() Relationshiper {
+func (s Folder) Relation() Relationer {
 	return s.relation
 }
 
@@ -235,8 +235,8 @@ func (s Folder) String() string {
 	return "folder:" + string(s.id)
 }
 
-// FolderRelation builds a folder relationship to be created, touched, or deleted.
-func (r *RelBuilder) FolderRelation(folder *Folder, rel FolderRelType, subject Objecter) *RelBuilder {
+// FolderRelationship builds a folder relationship to be created, touched, or deleted.
+func (r *RelBuilder) FolderRelationship(folder *Folder, rel FolderRelType, subject Objecter) *RelBuilder {
 	return r.perm(folder, rel, subject)
 }
 
@@ -282,7 +282,7 @@ func (s Team) Id() string {
 	return s.id
 }
 
-func (s Team) Relation() Relationshiper {
+func (s Team) Relation() Relationer {
 	return s.relation
 }
 
@@ -290,8 +290,8 @@ func (s Team) String() string {
 	return "team:" + string(s.id)
 }
 
-// TeamRelation builds a team relationship to be created, touched, or deleted.
-func (r *RelBuilder) TeamRelation(team *Team, rel TeamRelType, subject Objecter) *RelBuilder {
+// TeamRelationship builds a team relationship to be created, touched, or deleted.
+func (r *RelBuilder) TeamRelationship(team *Team, rel TeamRelType, subject Objecter) *RelBuilder {
 	return r.perm(team, rel, subject)
 }
 

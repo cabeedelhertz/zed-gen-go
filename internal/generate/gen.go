@@ -21,7 +21,6 @@ type generatedFile struct {
 
 func (gf *generatedFile) P(args ...any) {
 	// Write to the file
-
 	for _, arg := range args {
 		fmt.Fprint(gf.File, arg)
 	}
@@ -96,7 +95,7 @@ func generateBuilder(out *generatedFile) {
 	out.P("	return r")
 	out.P("}")
 	out.P()
-	out.P("func (r *RelBuilder) perm(resource Objecter, rel Relationshiper, subject Objecter) *RelBuilder {")
+	out.P("func (r *RelBuilder) perm(resource Objecter, rel Relationer, subject Objecter) *RelBuilder {")
 	out.P("	up := &v1.RelationshipUpdate{")
 	out.P("		Operation: r.action,")
 	out.P("		Relationship: &v1.Relationship{")
@@ -131,7 +130,7 @@ func generateBaseInterfaces(out *generatedFile) {
 	out.P("type Objecter interface {")
 	out.P("	Object() string")
 	out.P("	String() string")
-	out.P("	Relation() Relationshiper")
+	out.P("	Relation() Relationer")
 	out.P("	Id() string")
 	out.P("}")
 	out.P()
@@ -139,10 +138,10 @@ func generateBaseInterfaces(out *generatedFile) {
 	out.P("type Deleter interface {")
 	out.P("	Object() string")
 	out.P("	Id() string")
-	out.P("	Relation() Relationshiper")
+	out.P("	Relation() Relationer")
 	out.P("}")
 	out.P()
-	out.P("type Relationshiper interface {")
+	out.P("type Relationer interface {")
 	out.P("	String() string")
 	out.P("}")
 	out.P()
@@ -193,7 +192,7 @@ func generateBaseObjects(out *generatedFile, schema []parser.Definition) {
 		out.P("	return s.id")
 		out.P("}")
 		out.P()
-		out.P("func (s ", pascalName, ") Relation() Relationshiper {")
+		out.P("func (s ", pascalName, ") Relation() Relationer {")
 		out.P("	return s.relation")
 		out.P("}")
 		out.P()
@@ -201,8 +200,8 @@ func generateBaseObjects(out *generatedFile, schema []parser.Definition) {
 		out.P("	return \"", def.Name, ":\" + string(s.id)")
 		out.P("}")
 		out.P()
-		out.P("// ", pascalName, "Relation builds a ", def.Name, " relationship to be created, touched, or deleted.")
-		out.P("func (r *RelBuilder) ", pascalName, "Relation(", def.Name, " *", pascalName, ", rel ", pascalName, "RelType, subject Objecter) *RelBuilder {")
+		out.P("// ", pascalName, "Relationship builds a ", def.Name, " relationship to be created, touched, or deleted.")
+		out.P("func (r *RelBuilder) ", pascalName, "Relationship(", def.Name, " *", pascalName, ", rel ", pascalName, "RelType, subject Objecter) *RelBuilder {")
 		out.P("	return r.perm(", def.Name, ", rel, subject)")
 		out.P("}")
 		out.P()

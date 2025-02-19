@@ -8,22 +8,22 @@ import (
 
 func Test(t *testing.T) {
 	relationships := zschema.NewRelBuilder().Create().
-		TeamRelation(
+		TeamRelationship(
 			zschema.TeamObj("123"),
 			zschema.TeamRelTypeMember,
 			zschema.UserObj("456"),
 		).
-		FolderRelation(
+		FolderRelationship(
 			zschema.FolderObj("789"),
 			zschema.FolderRelTypeReader,
 			zschema.TeamObj("456"),
 		).
-		DocumentRelation(
+		DocumentRelationship(
 			zschema.DocumentObj("789"),
 			zschema.DocumentRelTypeReader,
 			zschema.TeamObj("123"),
 		).
-		DocumentRelation(
+		DocumentRelationship(
 			zschema.DocumentObj("789"),
 			zschema.DocumentRelTypeParentFolder,
 			zschema.FolderObj("789"),

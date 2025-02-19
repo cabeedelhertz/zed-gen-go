@@ -1,0 +1,26 @@
+services:
+  postgres:
+    mem_limit: 8g
+    image: postgres:latest
+    ports:
+      - "0.0.0.0:5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=spice_local
+    volumes:
+       - db:/var/lib/postgresql/data
+  spicedb:
+    image: "authzed/spicedb:latest"
+    profiles:
+        - authz
+    command: "serve"
+    restart: "always"
+    ports:
+      - "8088:8080"
+      - "9090:9090"
+      - "50052:50051"
+    environment:
+      - "SPICEDB_GRPC_PRESHARED_KEY=foobarbaz"
+      - "SPICEDB_DATASTORE_ENGINE=postgres"
+      - "SPICEDB_DATASTORE_CONN_URI=postgres://postgres:password@postgres:5432/spicedb?sslmode=disable"
