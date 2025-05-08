@@ -171,7 +171,7 @@ func generateBaseObjects(out *generatedFile, schema []parser.Definition) {
 					out.P("	", comment)
 				}
 			} else {
-				out.P("	// ", rel.Name, " relation")
+				out.P("	// \"", rel.Name, "\" relation")
 			}
 			out.P("	", pascalName, "Rel", strcase.ToGoPascal(rel.Name), " ", pascalName, "RelType = \"", rel.Name, "\"")
 		}

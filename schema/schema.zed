@@ -3,6 +3,7 @@ definition user {}
 definition document {
     relation parent_folder: folder
 
+    // the writer role for the document
     relation writer: user
     relation reader: user // testing comment
  

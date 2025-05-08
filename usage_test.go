@@ -10,22 +10,22 @@ func Test(t *testing.T) {
 	relationships := zschema.NewRelBuilder().Create().
 		TeamRelationship(
 			zschema.TeamObj("123"),
-			zschema.TeamRelTypeMember,
+			zschema.TeamRelMember,
 			zschema.UserObj("456"),
 		).
 		FolderRelationship(
 			zschema.FolderObj("789"),
-			zschema.FolderRelTypeReader,
+			zschema.FolderRelReader,
 			zschema.TeamObj("456"),
 		).
 		DocumentRelationship(
 			zschema.DocumentObj("789"),
-			zschema.DocumentRelTypeReader,
+			zschema.DocumentRelReader,
 			zschema.TeamObj("123"),
 		).
 		DocumentRelationship(
 			zschema.DocumentObj("789"),
-			zschema.DocumentRelTypeParentFolder,
+			zschema.DocumentRelParentFolder,
 			zschema.FolderObj("789"),
 		).Build()
 	fmt.Printf("relationships: %+v\n", relationships)

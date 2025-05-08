@@ -144,20 +144,20 @@ func (s DocumentRelType) String() string {
 
 const (
 	// "parent_folder" relation
-	DocumentRelTypeParentFolder DocumentRelType = "parent_folder"
-	// "writer" relation
-	DocumentRelTypeWriter DocumentRelType = "writer"
+	DocumentRelParentFolder DocumentRelType = "parent_folder"
+	// the writer role for the document
+	DocumentRelWriter DocumentRelType = "writer"
 	// "reader" relation
-	DocumentRelTypeReader DocumentRelType = "reader"
+	DocumentRelReader DocumentRelType = "reader"
 )
 
 type DocumentPermissionType string
 
 const (
 	// "edit" permission
-	DocumentPermissionTypeEdit DocumentPermissionType = "edit"
+	DocumentPermissionEdit DocumentPermissionType = "edit"
 	// "view" permission
-	DocumentPermissionTypeView DocumentPermissionType = "view"
+	DocumentPermissionView DocumentPermissionType = "view"
 )
 
 func DocumentObj(id string) *Document {
@@ -201,18 +201,18 @@ func (s FolderRelType) String() string {
 
 const (
 	// "writer" relation
-	FolderRelTypeWriter FolderRelType = "writer"
+	FolderRelWriter FolderRelType = "writer"
 	// "reader" relation
-	FolderRelTypeReader FolderRelType = "reader"
+	FolderRelReader FolderRelType = "reader"
 )
 
 type FolderPermissionType string
 
 const (
 	// "edit" permission
-	FolderPermissionTypeEdit FolderPermissionType = "edit"
+	FolderPermissionEdit FolderPermissionType = "edit"
 	// "view" permission
-	FolderPermissionTypeView FolderPermissionType = "view"
+	FolderPermissionView FolderPermissionType = "view"
 )
 
 func FolderObj(id string) *Folder {
@@ -256,18 +256,18 @@ func (s TeamRelType) String() string {
 
 const (
 	// "member" relation
-	TeamRelTypeMember TeamRelType = "member"
+	TeamRelMember TeamRelType = "member"
 	// "owner" relation
-	TeamRelTypeOwner TeamRelType = "owner"
+	TeamRelOwner TeamRelType = "owner"
 )
 
 type TeamPermissionType string
 
 const (
 	// "edit" permission
-	TeamPermissionTypeEdit TeamPermissionType = "edit"
+	TeamPermissionEdit TeamPermissionType = "edit"
 	// "view" permission
-	TeamPermissionTypeView TeamPermissionType = "view"
+	TeamPermissionView TeamPermissionType = "view"
 )
 
 func TeamObj(id string) *Team {
