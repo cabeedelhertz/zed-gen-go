@@ -166,8 +166,14 @@ func generateBaseObjects(out *generatedFile, schema []parser.Definition) {
 		out.P()
 		out.P("const (")
 		for _, rel := range def.Relations {
-			out.P("	// \"", rel.Name, "\" relation")
-			out.P("	", pascalName, "RelType", strcase.ToGoPascal(rel.Name), " ", pascalName, "RelType = \"", rel.Name, "\"")
+			if len(rel.Comments) > 0 {
+				for _, comment := range rel.Comments {
+					out.P("	", comment)
+				}
+			} else {
+				out.P("	// ", rel.Name, " relation")
+			}
+			out.P("	", pascalName, "Rel", strcase.ToGoPascal(rel.Name), " ", pascalName, "RelType = \"", rel.Name, "\"")
 		}
 		out.P(")")
 		out.P()
@@ -176,7 +182,7 @@ func generateBaseObjects(out *generatedFile, schema []parser.Definition) {
 		out.P("const (")
 		for _, perm := range def.Permissions {
 			out.P("	// \"", perm.Name, "\" permission")
-			out.P("	", pascalName, "PermissionType", strcase.ToGoPascal(perm.Name), " ", pascalName, "PermissionType = \"", perm.Name, "\"")
+			out.P("	", pascalName, "Permission", strcase.ToGoPascal(perm.Name), " ", pascalName, "PermissionType = \"", perm.Name, "\"")
 		}
 		out.P(")")
 		out.P()
